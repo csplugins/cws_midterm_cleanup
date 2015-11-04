@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "375196C61BE9924000E07E03"
+               BlueprintIdentifier = "3796C3701BE95BFB00EB9073"
                BuildableName = "CleanUp.app"
                BlueprintName = "CleanUp"
                ReferencedContainer = "container:CleanUp.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "375196C61BE9924000E07E03"
+            BlueprintIdentifier = "3796C3701BE95BFB00EB9073"
             BuildableName = "CleanUp.app"
             BlueprintName = "CleanUp"
             ReferencedContainer = "container:CleanUp.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "375196C61BE9924000E07E03"
+            BlueprintIdentifier = "3796C3701BE95BFB00EB9073"
             BuildableName = "CleanUp.app"
             BlueprintName = "CleanUp"
             ReferencedContainer = "container:CleanUp.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "375196C61BE9924000E07E03"
+            BlueprintIdentifier = "3796C3701BE95BFB00EB9073"
             BuildableName = "CleanUp.app"
             BlueprintName = "CleanUp"
             ReferencedContainer = "container:CleanUp.xcodeproj">

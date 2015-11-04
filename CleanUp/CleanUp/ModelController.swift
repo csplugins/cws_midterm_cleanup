@@ -26,8 +26,9 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     override init() {
         super.init()
         // Create the data model.
-        let dateFormatter = NSDateFormatter()
-        pageData = dateFormatter.monthSymbols
+        //Interestingly, if there is an odd number of items, and you have two pages of the book displaying, the app will crash when you try to flip to the last page
+        let catNames: [String] = ["Pete", "Buster", "Mikky", "Feline", "Tyger", "Princess", "Tommy", "Harry"]
+        pageData = catNames
     }
 
     func viewControllerAtIndex(index: Int, storyboard: UIStoryboard) -> DataViewController? {
@@ -37,7 +38,10 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         }
 
         // Create a new view controller and pass suitable data.
-        let dataViewController = storyboard.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
+        guard let dataViewController = storyboard.instantiateViewControllerWithIdentifier("DataViewController") as? DataViewController else{
+            fatalError("Could not instantiate the view controller With Identifier for the storyboard as? DataViewController in function \(__FUNCTION__) on line \(__LINE__)")
+        }
+        //Allow the data to be shown on the page. Removing this will not show a page label and not allow you to flip pages. App crashed without it when trying to rotate
         dataViewController.dataObject = self.pageData[index]
         return dataViewController
     }
@@ -50,27 +54,43 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
 
     // MARK: - Page View Controller Data Source
 
+    //Used for looking at the previous page. This is useful to keep things in order and ensure we don't fip to an out of bounds page
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        var index = self.indexOfViewController(viewController as! DataViewController)
+        guard let vC = viewController as? DataViewController else{
+            fatalError("Could not cast viewController as? DataViewController in function \(__FUNCTION__) on line \(__LINE__)")
+        }
+        var index = self.indexOfViewController(vC)
         if (index == 0) || (index == NSNotFound) {
             return nil
         }
         
+        //Change the page count to keep flipping between pages in bound and display the proper next item in the array
         index--
-        return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
+        guard let vCS = viewController.storyboard else{
+            fatalError("Could not find viewController.storyboard in function \(__FUNCTION__) on line \(__LINE__)")
+        }
+        return self.viewControllerAtIndex(index, storyboard: vCS)
     }
 
+    //Used for looking at the next page. This is also useful to keep things in order and ensure we don't fip to an out of bounds page
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        var index = self.indexOfViewController(viewController as! DataViewController)
+        guard let vC = viewController as? DataViewController else{
+            fatalError("Could not cast viewController as? DataViewController in function \(__FUNCTION__) on line \(__LINE__)")
+        }
+        var index = self.indexOfViewController(vC)
         if index == NSNotFound {
             return nil
         }
         
+        //Change the page count to keep flipping between pages in bound and display the proper next item in the array
         index++
         if index == self.pageData.count {
             return nil
         }
-        return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
+        guard let vCS = viewController.storyboard else{
+            fatalError("Could not find viewController.storyboard in function \(__FUNCTION__) on line \(__LINE__)")
+        }
+        return self.viewControllerAtIndex(index, storyboard: vCS)
     }
 
 }

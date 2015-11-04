@@ -10,7 +10,8 @@ import UIKit
 
 class DataViewController: UIViewController {
 
-    @IBOutlet weak var dataLabel: UILabel!
+    //Referencing outlet to the label at the top of the page
+    @IBOutlet weak var dataLabel: UILabel?
     var dataObject: String = ""
 
 
@@ -26,7 +27,8 @@ class DataViewController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.dataLabel!.text = dataObject
+        //The dataLabel is set to "" initially but will be changed
+        self.dataLabel?.text = dataObject
     }
 
 
